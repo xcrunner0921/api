@@ -26,21 +26,6 @@
 			<ref bean="subwayService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
-	
-	<!--프로퍼티 설정 -->
-	<bean id="propertySource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-
-		<property name="basenames">
-			<list>
-				<value>classpath:property/application</value>
-				<!-- <value>classpath:property/tableEntityBuilder</value> -->
-			</list>
-		</property>
-		<!--cacheSeconds 가 -1 이면 reload 하지 않음 -->
-		<!--<property name="cacheSeconds" value="${property.reload.second}" />-->
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
 
 	<!--메시지 설정 -->
 	<bean id="messageSource"

@@ -9,13 +9,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.PathSegment;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import api.subway.model.Station;
 
+@Service
 @Path("/subway")
 @Produces("text/xml")
 public class SubwayService {
-	@Autowired
+//	@Autowired(required=true)
 	Station station; 
 	
 	@GET
