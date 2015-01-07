@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+						http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+						http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<context:component-scan base-package="api.subway" />
+
+<!-- 	<jaxws:endpoint id="bookShelfService" -->
+<!-- 		implementor="com.aranin.weblog4j.services.BookShelfServiceImpl" -->
+<!-- 		address="/bookshelfservice" /> -->
+	
+	<jaxrs:server id="restContainer" address="/">
+		<jaxrs:serviceBeans>
+			<ref bean="subwayService" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+	
+	<!--프로퍼티 설정 -->
+	<bean id="propertySource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+
+		<property name="basenames">
+			<list>
+				<value>classpath:property/application</value>
+				<!-- <value>classpath:property/tableEntityBuilder</value> -->
+			</list>
+		</property>
+		<!--cacheSeconds 가 -1 이면 reload 하지 않음 -->
+		<!--<property name="cacheSeconds" value="${property.reload.second}" />-->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!--메시지 설정 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:message/alert</value>
+				<value>classpath:message/error</value>
+				<value>classpath:message/handle</value>
+				<value>classpath:message/validate</value>
+			</list>
+		</property>
+		<!--cacheSeconds 가 -1 이면 reload 하지 않음 -->
+		<!--<property name="cacheSeconds" value="${message.reload.second}" />-->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+</beans>
