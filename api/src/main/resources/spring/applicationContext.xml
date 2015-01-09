@@ -19,6 +19,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
+	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->
 	<context:component-scan base-package="api.subway" />
 	
 	<!-- resteasy 적용시 @Autowired 사용하는 경우 정의해 주어야 함 -->
@@ -52,26 +53,37 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
-    <context:component-scan base-package="api.subway" />
-
     <!-- enable autowire -->
     <context:annotation-config />
 
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven />
 
-    <!-- define the SqlSessionFactory -->
+    <!-- sqlsession dao -->
+<!--     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 		<property name="configLocation" value="classpath:spring/mybatisConfig.xml" /> -->
+<!-- 		<property name="mapperLocations" value="classpath*:query/*.mappers.xml" /> -->
+<!-- 	</bean> -->
+	
+	<!-- defaultDao 설정 -->
+<!-- 	<bean id="apiDao" class="com.ktnet.ets.framework.jdbc.MybatisSqlClient"> -->
+<!-- 		<property name="sqlSessionFactory" ref="defaultSqlSessionFactory"></property> -->
+<!-- 	</bean> -->
+	<!-- sqlsession dao -->
+	
+	<!-- mapper dao -->
+	<!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:spring/mybatisConfig.xml" />
-		<property name="mapperLocations" value="classpath*:query/*.mappers.xml" />
-	</bean>
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="api.subway.model" />
+    </bean>
 
     <!-- scan for mappers and let them be autowired -->
-<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
-<!--         <property name="basePackage" value="org.mybatis.jpetstore.persistence" /> -->
-<!--     </bean> -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="api.subway.dao" />
+    </bean>
+    <!-- mapper dao -->
 	
 	
 </beans>
