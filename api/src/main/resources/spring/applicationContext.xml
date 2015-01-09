@@ -19,6 +19,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
+	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->
 	<context:component-scan base-package="api.subway" />
 	
 	<!-- resteasy 적용시 @Autowired 사용하는 경우 정의해 주어야 함 -->
@@ -36,14 +37,20 @@
 	
 	<!-- dataSource start -->
 	<!-- 개발서버 : 오라클 11g start -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
-        <property name="url" value="jdbc:log4jdbc:oracle:thin:@127.0.0.1:1521:ORCL"/>
-        <property name="username" value="spoll"/>
-        <property name="password" value="SPOLL"/>
+<!--     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!--         <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/> -->
+<!--         <property name="url" value="jdbc:log4jdbc:oracle:thin:@127.0.0.1:1521:ORCL"/> -->
+<!--         <property name="username" value="spoll"/> -->
+<!--         <property name="password" value="SPOLL"/> -->
         <!-- <property name="url" value="jdbc:log4jdbc:oracle:thin:@98.0.207.87:1521:ORCL"/>-->
         <!-- <property name="defaultAutoCommit" value="false"/> -->
-    </bean>	
+<!--     </bean> -->
+	<bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+		<property name="driver" value="com.oracle.jdbc.Driver" />
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@127.0.0.1:1521:ORCL" />
+		<property name="username" value="spoll" />
+		<property name="password" value="SPOLL" />
+	</bean>
     <!-- 개발서버 : 오라클 11g end  -->
     <!-- dataSource end -->
 	
@@ -52,26 +59,37 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
-    <context:component-scan base-package="api.subway" />
-
     <!-- enable autowire -->
     <context:annotation-config />
 
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven />
 
-    <!-- define the SqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- sqlsession dao -->
+<!--     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 		<property name="configLocation" value="classpath:spring/mybatisConfig.xml" /> -->
+<!-- 		<property name="mapperLocations" value="classpath*:query/*.mappers.xml" /> -->
+<!-- 	</bean> -->
+	
+	<!-- defaultDao 설정 -->
+<!-- 	<bean id="apiDao" class="com.ktnet.ets.framework.jdbc.MybatisSqlClient"> -->
+<!-- 		<property name="sqlSessionFactory" ref="defaultSqlSessionFactory"></property> -->
+<!-- 	</bean> -->
+	<!-- sqlsession dao -->
+	
+	<!-- sqlSessionTemplate -->
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:spring/mybatisConfig.xml" />
-		<property name="mapperLocations" value="classpath*:query/*.mappers.xml" />
 	</bean>
 
     <!-- scan for mappers and let them be autowired -->
-<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
-<!--         <property name="basePackage" value="org.mybatis.jpetstore.persistence" /> -->
-<!--     </bean> -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+    <!-- sqlSessionTemplate -->
 	
 	
 </beans>

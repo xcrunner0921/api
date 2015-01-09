@@ -20,5 +20,8 @@
 	
 	<!-- http://stackoverflow.com/questions/9841448/get-schema-name-from-a-properties-file -->
 	<!-- <properties resource="sqlmapconfig.properties" />	 -->
+	<mappers>
+		<mapper resource="WEB-INF/classes/query/station.mapper.xml" />
+	</mappers>
 	
 </configuration>

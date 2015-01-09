@@ -1,14 +1,16 @@
 package api.subway.property;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Locale;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+//import api.subway.core.FrameworkContext;
 
 public class MessageFactory {
-	@Autowired
-    private static ApplicationContext appCtx;
-    private static ReloadableResourceBundleMessageSource msa = (ReloadableResourceBundleMessageSource) appCtx.getBean("messageSource");
+
+//    private static ApplicationContext appCtx = FrameworkContext.getInstance().getApplicationContext();
+//    private static ReloadableResourceBundleMessageSource msa = (ReloadableResourceBundleMessageSource) appCtx.getBean("messageSource");
 //
 //
 //    /**
