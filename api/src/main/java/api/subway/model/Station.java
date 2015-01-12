@@ -12,6 +12,7 @@ public class Station {
 	String stationTel;
 	String stationGps;
 	String stationExit;
+	String sysdate;
 	
 	/**
 	 * @return the stationId
@@ -84,6 +85,18 @@ public class Station {
 	 */
 	public void setStationExit(String stationExit) {
 		this.stationExit = stationExit;
+	}
+	/**
+	 * @return the sysdate
+	 */
+	public String getSysdate() {
+		return sysdate;
+	}
+	/**
+	 * @param sysdate the sysdate to set
+	 */
+	public void setSysdate(String sysdate) {
+		this.sysdate = sysdate;
 	}
 	
 	

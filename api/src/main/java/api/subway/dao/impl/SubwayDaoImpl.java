@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 import api.subway.dao.SubwayDao;
 
-@Component
+//@Component
 public class SubwayDaoImpl implements SubwayDao {
-	@Autowired
+//	@Autowired
 	private SqlSession sqlSession;
 
 	public String getStationByName(String name) {

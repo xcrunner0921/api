@@ -18,7 +18,7 @@ import api.subway.model.Station;
 public class SubwayService {
 //	@Autowired(required=true)
 	Station station;
-	@Autowired
+//	@Autowired
 	SubwayDao dao;
 	
 //	@Autowired
