@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 세부 항목 가이드 http://mybatis.github.io/mybatis-3/ko/configuration.html-->
+    <settings>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+     <!--    <setting name="multipleResultSetsEnabled" value="true"/> -->
+        <!--    postresql 에서는 아직 미구현  <setting name="defaultStatementTimeout" value="25000"/> -->
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+<!-- 	<typeAliases> -->
+<!-- 		<typeAlias alias="StringModel" type="com.ktnet.ets.framework.spring.StringModel" /> -->
+<!-- 		<typeAlias alias="PagingSearch" type="com.ktnet.ets.framework.spring.PagingSearch" /> -->
+<!-- 	</typeAliases> -->
+	
+	<!-- http://stackoverflow.com/questions/9841448/get-schema-name-from-a-properties-file -->
+	<!-- <properties resource="sqlmapconfig.properties" />	 -->
+<!-- 	<mappers> -->
+<!-- 		<mapper resource="classpath:query/station.mapper.xml" /> -->
+<!-- 	</mappers> -->
+	
+</configuration>
